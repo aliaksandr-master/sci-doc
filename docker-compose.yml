@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  lab:
+    build:
+      dockerfile: ./Dockerfile
+      args:
+        USER_ID: ${USER_ID:-1000}
+        GROUP_ID: ${GROUP_ID:-1001}
+      context: .
+    restart: unless-stopped
+    ports:
+      - 38888:38888
+    command: "jupyter lab --ip=0.0.0.0 --port 38888 '--NotebookApp.token=`1213' --notebook-dir=/home/www-data/var --preferred-dir /home/www-data/var"
+    environment:
+      JUPYTER_ENABLE_LAB: "yes"
+    volumes:
+      - ./var:/home/www-data/var
