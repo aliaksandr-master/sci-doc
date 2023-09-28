@@ -1,10 +1,10 @@
-FROM python:3.11-slim-bookworm
+FROM python:3.11.5-slim-bookworm
 
 ARG USER_ID
 ARG GROUP_ID
 
 RUN --mount=type=cache,target=/var/cache/apt \
-    apt update && apt-get install -y --no-install-recommends gcc
+    apt update && apt-get install -y --no-install-recommends gcc libc6-dev
 
 RUN if [ ${USER_ID:-0} -ne 0 ] && [ ${GROUP_ID:-0} -ne 0 ]; then \
     userdel -f www-data &&\
@@ -19,7 +19,7 @@ RUN if [ ${USER_ID:-0} -ne 0 ] && [ ${GROUP_ID:-0} -ne 0 ]; then \
 
 RUN --mount=type=cache,target=/root/.cache \
     pip install --upgrade pip \
-    && pip install poetry==1.5
+    && pip install poetry==1.6.1
 
 WORKDIR /home/www-data
 

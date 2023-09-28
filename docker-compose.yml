@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   lab:
+    image: alxemaster/sci-doc:1.0.0
     build:
       dockerfile: ./Dockerfile
       args:
